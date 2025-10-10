@@ -20,8 +20,8 @@ def twonode(y_nodeone):
     a_twonode = w_twonode @ y_nodeone + b_twonode
     alpha = a_twonode.max()
     sum_aexp = 0
-    for i in range(class_number):
-        sum_aexp += np.exp(a_twonode[i]-alpha)
+    exp_a_minus_alpha = np.exp(a_twonode - alpha)
+    sum_aexp = np.sum(exp_a_minus_alpha)
     y_twonode = np.exp(a_twonode-alpha)/sum_aexp
     return np.argmax(y_twonode)
 
