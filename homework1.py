@@ -13,7 +13,6 @@ def onenode(x_idx):
     b_onenode = np.random.normal(0,(np.sqrt(1/size)),(node_number,1))
     t_onenode = w_onenode @ x_changeToone + b_onenode
     y_onenode = 1/(1+np.exp(-t_onenode))
-    print(y_onenode)
     return y_onenode
 
 def twonode(y_nodeone):
@@ -26,8 +25,6 @@ def twonode(y_nodeone):
     for i in range(class_number):
         sum_aexp += np.exp(a_twonode[i]-alpha)
     y_twonode = np.exp(a_twonode-alpha)/sum_aexp
-    print(y_twonode)
-    print(y_twonode.shape)
     return np.argmax(y_twonode)
 
 idx = input("Please input an integer from 0 to 9999: ")
@@ -35,4 +32,4 @@ idx = int(idx)
 X_idx = X[idx]
 Y_onenode= onenode(X_idx)
 Y_max = twonode(Y_onenode)
-print(Y_max)
+print("入力された画像の数字は",Y_max,"です。")
