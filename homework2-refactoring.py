@@ -19,7 +19,6 @@ def onenode(x_idx):
     x_changeToone = x_idx.reshape(size,batchsize)/256.0
     t_onenode = w_onenode @ x_changeToone + b_onenode
     y_onenode = 1/(1+np.exp(-t_onenode))
-    print(y_onenode)
     return y_onenode
 
 def twonode(y_nodeone):
@@ -28,8 +27,6 @@ def twonode(y_nodeone):
     y_twonode_exp = np.exp(a_twonode - alpha)
     y_twonode_sum = y_twonode_exp.sum(axis=0,keepdims=True)
     y_twonode = np.divide(y_twonode_exp,y_twonode_sum)
-    print(y_twonode)
-    print(y_twonode.shape)
     return y_twonode
 
 def one_hot_vector(y):

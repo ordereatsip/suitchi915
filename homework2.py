@@ -17,7 +17,6 @@ def onenode(x_idx):
     b_onenode = np.random.normal(0,(np.sqrt(1/size)),(node_number,1))
     t_onenode = w_onenode @ x_changeToone + b_onenode
     y_onenode = 1/(1+np.exp(-t_onenode))
-    print(y_onenode)
     return y_onenode
 
 def twonode(y_nodeone):
@@ -29,8 +28,6 @@ def twonode(y_nodeone):
     y_twonode_exp = np.exp(a_twonode - alpha)
     y_twonode_sum = y_twonode_exp.sum(axis=0,keepdims=True)
     y_twonode = np.divide(y_twonode_exp,y_twonode_sum)
-    print(y_twonode)
-    print(y_twonode.shape)
     return y_twonode
 
 def one_hot_vector(y):
@@ -49,4 +46,4 @@ y_onenode = onenode(minibatch)
 y_twonode = twonode(y_onenode)
 y_onehot = one_hot_vector(Y[batchidx])
 exp_margin_value = exp_margin(y_onehot,y_twonode)
-print(exp_margin_value)
+print("クロスエントロピー誤差は",exp_margin_value,"です。")
