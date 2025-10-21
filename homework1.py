@@ -5,10 +5,10 @@ Y = mnist.download_and_parse_mnist_file("C:/Users/Order/data/train-labels-idx1-u
 size = 784
 class_number=10
 node_number=4
-
+np.random.seed(4)
 def onenode(x_idx):
     x_changeToone = x_idx.reshape(size,1)/256
-    np.random.seed(4)
+    
     w_onenode = np.random.normal(0,(np.sqrt(1/size)),(node_number,size))
     b_onenode = np.random.normal(0,(np.sqrt(1/size)),(node_number,1))
     t_onenode = w_onenode @ x_changeToone + b_onenode
@@ -16,7 +16,7 @@ def onenode(x_idx):
     return y_onenode
 
 def twonode(y_nodeone):
-    np.random.seed(4)
+    
     w_twonode = np.random.normal(0,(np.sqrt(1/node_number)),(class_number,node_number))
     b_twonode = np.random.normal(0,(np.sqrt(1/node_number)),(class_number,1))
     a_twonode = w_twonode @ y_nodeone + b_twonode

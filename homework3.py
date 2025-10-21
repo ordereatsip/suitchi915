@@ -9,7 +9,7 @@ from pylab import cm
 size = 784
 pic_amount=10000
 class_number=10
-node_number=80
+node_number=100
 batchsize=100
 learning_rate = 0.01
 learn_size=X.shape[0]
@@ -111,12 +111,12 @@ for j in range(100):
         y_max = np.argmax(y_twonode,axis=0)
         y_right_test += (y_max == right_number).sum()
     y_acurate_test = y_right_test / test_size
-    print("エントロピー誤差の平均値:",exp_margin_average,"\n正解率:",y_acurate,"\nテストデータに対する正解率:",y_acurate_test)
+    print("第",j,"エポック","\nエントロピー誤差の平均値:",exp_margin_average,"\n正解率:",y_acurate,"\nテストデータに対する正解率:",y_acurate_test)
     epochs.append(j + 1)
     train_accuracies.append(y_acurate)
     test_accuracies.append(y_acurate_test)
 
-np.save('weight_file.npz',
+np.savez('weight_file.npz',
         w1=w_onenode, 
          b1=b_onenode, 
          w2=w_twonode, 
