@@ -14,7 +14,7 @@ batchsize=100
 learning_rate = 0.01
 learn_size=X.shape[0]
 test_size=X2.shape[0]
-or_initilize = input("重みを初期化しますか？ (y/n): ")
+or_initilize = input("パラメータを続けて使用しますか？ (y/n): ")
 if or_initilize == 'y':
     data = np.load('weight_file.npz')
     w_onenode = data['w1']
@@ -81,7 +81,7 @@ for j in range(100):
         batchidx = np.random.choice(learn_size, size=batchsize, replace=False)
         minibatch=X[batchidx]
         right_number=Y[batchidx]
-        x_normalized = minibatch.reshape(batchsize,size).T /256.0
+        x_normalized = minibatch.reshape(batchsize,size).T /255.0
         y_onenode = onenode(x_normalized)
         y_twonode = twonode(y_onenode)
         y_max = np.argmax(y_twonode,axis=0)
