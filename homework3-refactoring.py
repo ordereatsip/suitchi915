@@ -17,26 +17,16 @@ LEARNING_RATE = 0.01
 WEIGHT_FILE = 'weight_file.npz'
 
 def main():
-    # 1. データの準備
     (X_train, Y_train), (X_test, Y_test) = load_mnist_data()
     train_size = X_train.shape[0]
     test_size = X_test.shape[0]
     
-    # 2. モデルの初期化 (この時点でパラメータは__init__に従って初期化される)
     model = NeuralNetwork(INPUT_SIZE, HIDDEN_NODES, OUTPUT_CLASSES)
     
-    # ▼▼▼ この部分を修正します ▼▼▼
-    # 3. 学習済みパラメータの読み込み確認
     load_params_prompt = input("学習済みのパラメータをファイルから読み込みますか？ (y/n): ")
     
     if load_params_prompt.lower() == 'y':
-        # 'y' の場合のみ、ファイルからロードして初期化された値を上書きする
         model.load_weights(WEIGHT_FILE)
-    # 'n' の場合は、ロード処理をスキップする
-    # (→ 2. で__init__された初期値のまま学習がスタートする)
-    
-    # 4. 学習ループ (Epoch)
-    # ( ... 以降のコードは変更ありません ... )
 
     print(f"学習を開始します (Epochs: {EPOCHS}, Batch Size: {BATCH_SIZE}, LR: {LEARNING_RATE})")
     
@@ -95,10 +85,8 @@ def main():
         train_accuracies.append(avg_train_accuracy)
         test_accuracies.append(avg_test_accuracy)
 
-    # 8. 学習後の重み保存
     model.save_weights(WEIGHT_FILE)
     
-    # 9. グラフのプロット
     plt.figure(figsize=(10, 6))
     plt.plot(epochs_list, train_accuracies, label='訓練データの正解率 (Train Accuracy)')
     plt.plot(epochs_list, test_accuracies, label='テストデータの正解率 (Test Accuracy)', linestyle='--')

@@ -4,7 +4,7 @@
 (バイアスをランダムな正規分布で初期化するバージョン)
 """
 import numpy as np
-from utils import sigmoid, sigmoid_derivative, softmax
+from utils import sigmoid, sigmoid_derivative, softmax,relu,relu_derivative
 
 class NeuralNetwork:
     """3層ニューラルネットワーク (入力層 - 隠れ層 - 出力層)"""
@@ -33,7 +33,7 @@ class NeuralNetwork:
         
         # レイヤー1 (隠れ層)
         t1 = self.w1 @ x_processed + self.b1
-        y1 = sigmoid(t1)
+        y1 = relu(t1)
         
         # レイヤー2 (出力層)
         a2 = self.w2 @ y1 + self.b2
@@ -59,7 +59,7 @@ class NeuralNetwork:
         delta_y1 = self.w2.T @ delta_a2
         
         # 4. 隠れ層 (Sigmoid) の勾配
-        delta_t1 = delta_y1 * sigmoid_derivative(self.cache['y1'])
+        delta_t1 = delta_y1 * relu_derivative(self.cache['y1'])
         
         # 5. レイヤー1 (w1, b1) の勾配
         dw1 = delta_t1 @ self.cache['x_processed'].T

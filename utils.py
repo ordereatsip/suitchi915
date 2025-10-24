@@ -19,6 +19,12 @@ def softmax(x):
     exp_x = np.exp(x)
     return exp_x / np.sum(exp_x, axis=0, keepdims=True)
 
+def relu(x):
+    return np.maximum(x,0)
+
+def relu_derivative(y):
+    return (y>0)
+
 def to_one_hot_vector(labels, num_classes, batch_size):
     """ラベルのバッチをワンホットベクトルに変換します"""
     one_hot = np.zeros((num_classes, batch_size))
