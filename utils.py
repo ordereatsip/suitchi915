@@ -25,6 +25,15 @@ def relu(x):
 def relu_derivative(y):
     return (y>0)
 
+def dropout(x,rad_array,rate):
+    return  (rad_array > rate).round().astype(int) * x
+
+def dropout_test(x,rate):
+    return x * (1 - rate)
+
+def dropout_derivative (delta_exp_y,rad_array,rate): 
+    return (rad_array > rate).round().astype(int) * delta_exp_y
+
 def to_one_hot_vector(labels, num_classes, batch_size):
     """ラベルのバッチをワンホットベクトルに変換します"""
     one_hot = np.zeros((num_classes, batch_size))

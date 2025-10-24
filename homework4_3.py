@@ -10,6 +10,7 @@ OUTPUT_CLASSES = 10
 BATCH_SIZE = 100
 EPOCHS = 100
 LEARNING_RATE = 0.01
+DROP_RATE = 0.1
 WEIGHT_FILE = 'weight_file.npz'
 
 def main():
@@ -41,18 +42,18 @@ def main():
         for i in range(0, train_size, BATCH_SIZE):
             x_batch = X_train_shuffled[i : i + BATCH_SIZE]
             y_batch_labels = Y_train_shuffled[i : i + BATCH_SIZE]
-            
+            rad_array = np.random.rand(HIDDEN_NODES,BATCH_SIZE)
+
             current_batch_size = x_batch.shape[0]
             if current_batch_size != BATCH_SIZE:
                 continue
             
             y_batch_one_hot = to_one_hot_vector(y_batch_labels, OUTPUT_CLASSES, current_batch_size)
-            
-            y_pred = model.forward(x_batch)
+            y_pred = model.forward(x_batch,DROP_RATE,rad_array,True)
             total_train_loss += calculate_cross_entropy(y_pred, y_batch_one_hot)
             total_train_accuracy += calculate_accuracy(y_pred, y_batch_labels)
             
-            model.backward(y_batch_one_hot, y_pred)
+            model.backward(y_batch_one_hot, y_pred,rad_array,DROP_RATE)
             model.update(LEARNING_RATE)
         
         avg_train_loss = total_train_loss / (train_size // BATCH_SIZE)
@@ -67,7 +68,7 @@ def main():
             if current_batch_size != BATCH_SIZE:
                 continue
 
-            y_test_pred = model.forward(x_test_batch)
+            y_test_pred = model.forward(x_test_batch,DROP_RATE,rad_array,False)
             total_test_accuracy += calculate_accuracy(y_test_pred, y_test_batch_labels)
         
         avg_test_accuracy = total_test_accuracy / (test_size // BATCH_SIZE)
