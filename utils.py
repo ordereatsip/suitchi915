@@ -19,6 +19,14 @@ def softmax(x):
     exp_x = np.exp(x)
     return exp_x / np.sum(exp_x, axis=0, keepdims=True)
 
+def input_normalization(x,batch_size,gamma,beta):
+    epsilon = 1e-7
+    average_batch = np.sum(x, axis=0) / batch_size
+    variance = np.sum((x-average_batch)**2 ,axis=0) /batch_size
+    x_normalization = (x-average_batch) / ((variance + epsilon)**(1/2))
+    y_normalizetion = gamma * x_normalization + beta
+    return (average_batch,variance,y_normalizetion,x_normalization)
+
 def relu(x):
     return np.maximum(x,0)
 
